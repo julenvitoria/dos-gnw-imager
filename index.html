@@ -31,9 +31,46 @@
     <button class="tab" role="tab" id="tab-dosxt" data-core="dosxt" aria-selected="false">
       <strong data-i18n="tab_dosxt">DosXT</strong><small data-i18n="tab_dosxt_sub"></small>
     </button>
+    <button class="tab" role="tab" id="tab-tools" data-core="tools" aria-selected="false">
+      <strong data-i18n="tab_tools"></strong><small data-i18n="tab_tools_sub"></small>
+    </button>
   </nav>
 
   <main class="main">
+    <!-- Tools: links to other pages -->
+    <section class="card" id="tools" hidden>
+      <h2 data-i18n="tools_title"></h2>
+      <div class="tools">
+        <a class="tool" href="https://sylverb.github.io/CoverStudio/?target=gw" target="_blank" rel="noopener">
+          <span class="tool__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14Zm-5-7-3 3.9L9 13.4 6 17h12l-4-5Z"/></svg></span>
+          <span class="tool__body">
+            <strong>CoverStudio</strong>
+            <span data-i18n="tool_coverstudio"></span>
+            <small class="muted">sylverb.github.io/CoverStudio</small>
+          </span>
+          <span class="tool__go" data-i18n="tool_open"></span>
+        </a>
+        <a class="tool" href="https://github.com/julenvitoria/DosAT-retro-go-sd#readme" target="_blank" rel="noopener">
+          <span class="tool__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm0 18H6V4h2v7l2.5-1.5L13 11V4h5v16Z"/></svg></span>
+          <span class="tool__body">
+            <strong data-i18n="tool_dosat"></strong>
+            <span data-i18n="tool_dosat_sub"></span>
+            <small class="muted">github.com/julenvitoria/DosAT-retro-go-sd</small>
+          </span>
+          <span class="tool__go" data-i18n="tool_open"></span>
+        </a>
+        <a class="tool" href="https://github.com/julenvitoria/DosXT-retro-go-sd#readme" target="_blank" rel="noopener">
+          <span class="tool__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm0 18H6V4h2v7l2.5-1.5L13 11V4h5v16Z"/></svg></span>
+          <span class="tool__body">
+            <strong data-i18n="tool_dosxt"></strong>
+            <span data-i18n="tool_dosxt_sub"></span>
+            <small class="muted">github.com/julenvitoria/DosXT-retro-go-sd</small>
+          </span>
+          <span class="tool__go" data-i18n="tool_open"></span>
+        </a>
+      </div>
+    </section>
+
     <!-- 1. Game -->
     <section class="card" id="s-game">
       <h2><span class="num">1</span><span data-i18n="step_game"></span></h2>

@@ -53,14 +53,23 @@ for (const tab of document.querySelectorAll(".tab")) {
   tab.addEventListener("click", () => selectCore(tab.dataset.core));
   tab.addEventListener("keydown", (e) => {
     if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-      const next = tab.dataset.core === "dosat" ? "dosxt" : "dosat";
+      const order = ["dosat", "dosxt", "tools"];
+      const i = order.indexOf(tab.dataset.core) + (e.key === "ArrowRight" ? 1 : -1);
+      const next = order[(i + order.length) % order.length];
       selectCore(next); $(`tab-${next}`).focus();
     }
   });
 }
 function selectCore(core) {
-  state.core = core;
   for (const tab of document.querySelectorAll(".tab")) tab.setAttribute("aria-selected", String(tab.dataset.core === core));
+  // The tools tab is a list of links: it hides the game and its steps and
+  // keeps the core (and the loaded game) for when a core tab comes back.
+  const tools = core === "tools";
+  $("tools").hidden = !tools;
+  $("s-game").hidden = tools;
+  $("steps").hidden = tools || !state.game;
+  if (tools) return;
+  state.core = core;
   for (const el of document.querySelectorAll("[data-only]")) el.hidden = el.dataset.only !== core;
   fillLayouts();
   renderPad();

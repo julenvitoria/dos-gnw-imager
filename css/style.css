@@ -63,7 +63,13 @@ a { color: var(--accent); }
 /* tabs */
 .tabs {
   max-width: 880px; margin: 12px auto 0; padding: 0 16px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+}
+@media (max-width: 520px) {
+  .tabs { gap: 6px; }
+  .tab { padding: 10px 10px; }
+  .tab strong { font-size: 15px; }
+  .tab small { font-size: 11px; line-height: 1.3; }
 }
 .tab {
   display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
@@ -193,3 +199,26 @@ pre.tree b { color: var(--gw-cream); font-weight: 600; }
 .seg button[aria-checked="true"] { background: #2b3957; color: var(--text); box-shadow: inset 0 -2px 0 var(--gw-cream); }
 .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 input:disabled { color: var(--text-muted); background: var(--bg-elevated); border-style: dashed; cursor: not-allowed; }
+
+/* tools */
+.tools { display: grid; gap: 10px; }
+.tool {
+  display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 12px;
+  background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text); text-decoration: none;
+  transition: border-color .15s, background .15s;
+}
+.tool:hover { border-color: var(--gw-cream); background: #1c2438; }
+.tool:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tool__icon { flex: none; width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; background: #2b3550; }
+.tool__icon svg { width: 24px; height: 24px; fill: var(--gw-cream); }
+.tool__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.tool__body > span { color: var(--text-muted); font-size: 14px; }
+.tool__body small { font-size: 12px; overflow-wrap: anywhere; }
+.tool__go { flex: none; font-weight: 600; font-size: 14px; color: var(--gw-cream); white-space: nowrap; }
+.tool__go::after { content: " ↗"; }
+@media (max-width: 520px) {
+  .tool { gap: 12px; padding: 12px; }
+  .tool__icon { width: 36px; height: 36px; }
+  .tool__go { font-size: 0; }               /* the whole card is the link: keep just the arrow */
+  .tool__go::after { content: "↗"; font-size: 18px; }
+}
