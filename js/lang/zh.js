@@ -26,7 +26,6 @@ export default {
   pre: "游戏之前运行的程序",
   pre_help: "可选，用“;”分隔。例如 SOUND 这样的声卡驱动。",
   boot: "DOS 启动盘",
-  boot_help: "DosXT 从这张软盘启动 MS-DOS（放在 /cores/dosxt）。如果游戏可以自行启动，请留空。",
   step_options: "选项",
   cpu_speed: "CPU 速度",
   cyc_max: "最高（推荐）",
@@ -98,4 +97,10 @@ export default {
   tool_dosat_sub: "安装、.cfg 文件、按键和存档。",
   tool_dosxt: "DosXT 指南",
   tool_dosxt_sub: "安装、!BOOT.img 启动盘和 .cfg 文件。",
+  boot_type: "你的 DosXT 从这里启动",
+  boot_floppy: "DOS 软盘（A:）",
+  boot_hd: "装有 DOS 的硬盘（C:）",
+  boot_none: "无：游戏自行启动",
+  game_drive: "游戏将位于 {d}",
+  boot_help: "启动镜像，放在 /cores/dosxt 或 /roms/dos。",
 };

@@ -29,7 +29,6 @@ export default {
   pre: "Programs before the game",
   pre_help: "Optional, separated by “;”. E.g. a sound driver such as SOUND.",
   boot: "DOS boot disk",
-  boot_help: "DosXT boots MS-DOS from this floppy (in /cores/dosxt). Leave it empty if the game boots by itself.",
   step_options: "Options",
   cpu_speed: "CPU speed",
   cyc_max: "Maximum (recommended)",
@@ -104,4 +103,10 @@ export default {
   tool_dosat_sub: "Installing, .cfg files, buttons and save states.",
   tool_dosxt: "DosXT guide",
   tool_dosxt_sub: "Installing, the !BOOT.img boot disk and .cfg files.",
+  boot_type: "Your DosXT boots from",
+  boot_floppy: "A DOS floppy (A:)",
+  boot_hd: "A hard disk with DOS (C:)",
+  boot_none: "None: the game boots by itself",
+  game_drive: "The game will be on {d}",
+  boot_help: "The boot image, in /cores/dosxt or /roms/dos.",
 };

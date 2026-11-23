@@ -26,7 +26,6 @@ export default {
   pre: "Programme vor dem Spiel",
   pre_help: "Optional, getrennt durch „;“. Z. B. ein Soundtreiber wie SOUND.",
   boot: "DOS-Startdiskette",
-  boot_help: "DosXT startet MS-DOS von dieser Diskette (in /cores/dosxt). Leer lassen, wenn das Spiel selbst bootet.",
   step_options: "Optionen",
   cpu_speed: "CPU-Geschwindigkeit",
   cyc_max: "Maximum (empfohlen)",
@@ -95,4 +94,10 @@ export default {
   tool_dosat_sub: "Installation, .cfg-Dateien, Tasten und Spielstände.",
   tool_dosxt: "Anleitung zu DosXT",
   tool_dosxt_sub: "Installation, Startdiskette !BOOT.img und .cfg-Dateien.",
+  boot_type: "Dein DosXT startet von",
+  boot_floppy: "Einer DOS-Diskette (A:)",
+  boot_hd: "Einer Festplatte mit DOS (C:)",
+  boot_none: "Nichts: Das Spiel bootet selbst",
+  game_drive: "Das Spiel liegt auf {d}",
+  boot_help: "Das Start-Image, in /cores/dosxt oder /roms/dos.",
 };

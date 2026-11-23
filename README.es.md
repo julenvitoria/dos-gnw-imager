@@ -37,8 +37,10 @@ Los mismos formatos que las herramientas de los cores
   `FICHER~1.DAT`); la página muestra todos los que ha cambiado.
 - **DosAT**: los archivos del juego van en la raíz del disco y un
   `AUTOEXEC.BAT` lo arranca, así que el `.dsk` funciona también sin su `.cfg`.
-- **DosXT**: un juego en disquete queda en `B:` y uno en disco duro, en su
-  carpeta de `C:`. DosXT arranca tu MS-DOS desde `!BOOT.img` (mira su README).
+- **DosXT**: un juego en disco duro va en su propia carpeta. Eliges desde
+  dónde arranca tu DosXT (un disquete de DOS, un disco duro con DOS o nada) y
+  la página calcula la unidad del juego: B:/C: con disquete de arranque, A:/D:
+  con disco duro de arranque y A:/C: sin ninguno. La elección se recuerda.
 
 ## Desarrollo
 

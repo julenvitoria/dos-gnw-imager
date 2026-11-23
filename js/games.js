@@ -229,13 +229,22 @@ function dosatCfg(name, opts, runLines) {
   return L.join("\n");
 }
 
+// The game's drive letter under DosXT (its docs/cfg): a boot floppy is A:,
+// so the game is B: (floppy) or C: (hard disk); a boot hard disk with DOS
+// is C:, so the game is A: or D:; with no boot image the game's own disk
+// boots and is A: or C:.
+export function xtGameDrive(bootType, kind) {
+  if (bootType === "hd") return kind === "floppy" ? "a:" : "d:";
+  if (bootType === "none") return kind === "floppy" ? "a:" : "c:";
+  return kind === "floppy" ? "b:" : "c:";
+}
+
 function dosxtCfg(name, opts, kind, folder) {
   const L = HEADER(`/cores/dosxt/${name}.cfg`);
-  const boot = (opts.boot ?? "!BOOT.img").trim();
+  const bootType = opts.bootType || "floppy";
+  const boot = bootType === "none" ? "" : (opts.boot ?? "!BOOT.img").trim();
   if (boot) L.push(`boot   = ${boot}`);
-  // With a boot floppy on A:, a game floppy is B: and a hard disk C:; with
-  // no boot image the game's own disk boots (and is A: or C:).
-  const drive = kind === "floppy" ? (boot ? "b:" : "a:") : "c:";
+  const drive = xtGameDrive(boot ? bootType : "none", kind);
   const cmds = [drive];
   const lines = commandLines(opts);
   for (const l of lines) {

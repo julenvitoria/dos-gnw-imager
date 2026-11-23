@@ -26,7 +26,6 @@ export default {
   pre: "ゲームの前に実行するプログラム",
   pre_help: "任意。「;」で区切ります。例：SOUND などのサウンドドライバー。",
   boot: "DOS 起動ディスク",
-  boot_help: "DosXT はこのフロッピーから MS-DOS を起動します（/cores/dosxt に置く）。ゲーム自体が起動する場合は空欄にします。",
   step_options: "オプション",
   cpu_speed: "CPU 速度",
   cyc_max: "最大（推奨）",
@@ -98,4 +97,10 @@ export default {
   tool_dosat_sub: "インストール、.cfg、ボタン、セーブステート。",
   tool_dosxt: "DosXT ガイド",
   tool_dosxt_sub: "インストール、起動ディスク !BOOT.img、.cfg。",
+  boot_type: "DosXT の起動元",
+  boot_floppy: "DOS のフロッピー（A:）",
+  boot_hd: "DOS 入りのハードディスク（C:）",
+  boot_none: "なし：ゲーム自体が起動",
+  game_drive: "ゲームは {d} に入ります",
+  boot_help: "起動イメージ。/cores/dosxt か /roms/dos に置きます。",
 };

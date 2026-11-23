@@ -132,6 +132,15 @@
             <small data-i18n="pre_help"></small>
           </label>
           <label class="field" data-only="dosxt">
+            <span data-i18n="boot_type"></span>
+            <select id="o-boottype">
+              <option value="floppy" data-i18n="boot_floppy"></option>
+              <option value="hd" data-i18n="boot_hd"></option>
+              <option value="none" data-i18n="boot_none"></option>
+            </select>
+            <small id="game-drive"></small>
+          </label>
+          <label class="field" data-only="dosxt" id="boot-name">
             <span data-i18n="boot"></span>
             <input id="o-boot" autocomplete="off" spellcheck="false" value="!BOOT.img">
             <small data-i18n="boot_help"></small>

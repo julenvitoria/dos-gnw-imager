@@ -27,7 +27,6 @@ export default {
   pre: "Programmi prima del gioco",
   pre_help: "Facoltativo, separati da «;». Es.: un driver audio come SOUND.",
   boot: "Disco di avvio DOS",
-  boot_help: "DosXT avvia MS-DOS da questo floppy (in /cores/dosxt). Lascialo vuoto se il gioco si avvia da solo.",
   step_options: "Opzioni",
   cpu_speed: "Velocità della CPU",
   cyc_max: "Massima (consigliata)",
@@ -92,4 +91,10 @@ export default {
   tool_coverstudio: "Cerca le copertine su ScreenScraper e le converte nel formato del Game & Watch.",
   tool_dosat: "Guida di DosAT", tool_dosat_sub: "Installazione, file .cfg, pulsanti e salvataggi.",
   tool_dosxt: "Guida di DosXT", tool_dosxt_sub: "Installazione, disco di avvio !BOOT.img e file .cfg.",
+  boot_type: "Il tuo DosXT si avvia da",
+  boot_floppy: "Un floppy DOS (A:)",
+  boot_hd: "Un disco rigido con DOS (C:)",
+  boot_none: "Niente: il gioco si avvia da solo",
+  game_drive: "Il gioco sarà su {d}",
+  boot_help: "L'immagine di avvio, in /cores/dosxt o /roms/dos.",
 };

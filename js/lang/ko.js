@@ -26,7 +26,6 @@ export default {
   pre: "게임 전에 실행할 프로그램",
   pre_help: "선택 사항, “;”로 구분합니다. 예: SOUND 같은 사운드 드라이버.",
   boot: "DOS 부팅 디스크",
-  boot_help: "DosXT는 이 플로피(/cores/dosxt에 있음)로 MS-DOS를 부팅합니다. 게임이 스스로 부팅하면 비워 두세요.",
   step_options: "옵션",
   cpu_speed: "CPU 속도",
   cyc_max: "최대 (권장)",
@@ -98,4 +97,10 @@ export default {
   tool_dosat_sub: "설치, .cfg 파일, 버튼, 상태 저장.",
   tool_dosxt: "DosXT 안내서",
   tool_dosxt_sub: "설치, !BOOT.img 부팅 디스크, .cfg 파일.",
+  boot_type: "DosXT 부팅 장치",
+  boot_floppy: "DOS 플로피 (A:)",
+  boot_hd: "DOS가 설치된 하드 디스크 (C:)",
+  boot_none: "없음: 게임이 스스로 부팅",
+  game_drive: "게임은 {d}에 있습니다",
+  boot_help: "부팅 이미지, /cores/dosxt 또는 /roms/dos에 있습니다.",
 };

@@ -1,7 +1,7 @@
 // The page: tabs, language, reading a folder or a .zip, the form, downloads.
 import { LANGS, initialLang, saveLang, setLang, t, applyTexts, fmtSize } from "./i18n.js";
 import { readZip, writeZip, ZipError } from "./zip.js";
-import { loadGame, programs, prepare, build, CORES, keyNames, normKey, treeStats } from "./games.js";
+import { loadGame, programs, prepare, build, CORES, keyNames, normKey, treeStats, xtGameDrive } from "./games.js";
 
 const $ = (id) => document.getElementById(id);
 const state = {
@@ -287,6 +287,7 @@ function opts() {
     args: $("o-args").value,
     pre: $("o-pre").value,
     boot: $("o-boot").value,
+    bootType: $("o-boottype").value,
     cycles: $("o-cycles").value,
     sound: $("o-sound").value,
     xms: $("o-xms").checked,
@@ -306,6 +307,22 @@ for (const el of document.querySelectorAll("#s-game input, #s-game select, #step
   if (el.closest("#pad")) continue;
   el.addEventListener(el.tagName === "SELECT" || el.type === "checkbox" ? "change" : "input", refresh);
 }
+
+// ------------------------------------------------------------ DosXT boot disk
+// What the user's DosXT boots from is the same for every game: remember it.
+const XTBOOT_KEY = "dos-gnw-imager.xtboot";
+try {
+  const saved = JSON.parse(localStorage.getItem(XTBOOT_KEY) || "null");
+  if (saved && ["floppy", "hd", "none"].includes(saved.type)) {
+    $("o-boottype").value = saved.type;
+    if (typeof saved.name === "string" && saved.name) $("o-boot").value = saved.name;
+  }
+} catch { /* defaults */ }
+function saveXtBoot() {
+  try { localStorage.setItem(XTBOOT_KEY, JSON.stringify({ type: $("o-boottype").value, name: $("o-boot").value })); } catch { /* not remembered */ }
+}
+$("o-boottype").addEventListener("change", saveXtBoot);
+$("o-boot").addEventListener("change", saveXtBoot);
 
 // ------------------------------------------------------------ preview
 function refresh() {
@@ -333,6 +350,11 @@ function refresh() {
     }
   }
   $("cfg-preview").textContent = p.cfgText;
+  if (state.core === "dosxt") {
+    const type = $("o-boottype").value;
+    $("boot-name").hidden = type === "none";
+    $("game-drive").textContent = t("game_drive", { d: xtGameDrive(type, p.layout.kind).toUpperCase() });
+  }
   const tree = $("sd-tree");
   tree.textContent = "";
   const lines = [

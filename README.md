@@ -36,8 +36,10 @@ The same layouts as the cores' own tools
   the page lists every name it changed.
 - **DosAT**: the game's files are the root of the disk, and an `AUTOEXEC.BAT`
   starts it, so the `.dsk` also works without its `.cfg`.
-- **DosXT**: a floppy game is on `B:`, a hard-disk game in its own folder on
-  `C:`. DosXT boots your MS-DOS from `!BOOT.img` (see its README).
+- **DosXT**: a hard-disk game goes in its own folder. You choose what your
+  DosXT boots from (a DOS floppy, a hard disk with DOS, or nothing) and the
+  page works out the game's drive: B:/C: with a boot floppy, A:/D: with a
+  boot hard disk, A:/C: with none. The choice is remembered.
 
 ## Development
 

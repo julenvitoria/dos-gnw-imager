@@ -27,7 +27,6 @@ export default {
   pre: "遊戲前執行的程式",
   pre_help: "選填，用「;」分隔。例如 SOUND 這類音效卡驅動程式。",
   boot: "DOS 開機磁片",
-  boot_help: "DosXT 從這張軟碟啟動 MS-DOS（放在 /cores/dosxt）。如果遊戲可以自行開機，請留空。",
   step_options: "選項",
   cpu_speed: "CPU 速度",
   cyc_max: "最高（建議）",
@@ -95,4 +94,10 @@ export default {
   tool_coverstudio: "從 ScreenScraper 搜尋遊戲封面，並轉換成 Game & Watch 的格式。",
   tool_dosat: "DosAT 說明", tool_dosat_sub: "安裝、.cfg 檔、按鍵和存檔。",
   tool_dosxt: "DosXT 說明", tool_dosxt_sub: "安裝、!BOOT.img 開機磁片和 .cfg 檔。",
+  boot_type: "你的 DosXT 從這裡開機",
+  boot_floppy: "DOS 軟碟（A:）",
+  boot_hd: "裝有 DOS 的硬碟（C:）",
+  boot_none: "無：遊戲自行開機",
+  game_drive: "遊戲將位於 {d}",
+  boot_help: "開機映像檔，放在 /cores/dosxt 或 /roms/dos。",
 };

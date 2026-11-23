@@ -27,7 +27,6 @@ export default {
   pre: "Programas antes do jogo",
   pre_help: "Opcional, separados por «;». Ex.: um driver de som como SOUND.",
   boot: "Disco de arranque do DOS",
-  boot_help: "O DosXT arranca o MS-DOS a partir desta disquete (em /cores/dosxt). Deixe vazio se o jogo arrancar sozinho.",
   step_options: "Opções",
   cpu_speed: "Velocidade da CPU",
   cyc_max: "Máxima (recomendada)",
@@ -92,4 +91,10 @@ export default {
   tool_coverstudio: "Procura capas no ScreenScraper e converte-as para o formato do Game & Watch.",
   tool_dosat: "Guia do DosAT", tool_dosat_sub: "Instalação, ficheiros .cfg, botões e jogos guardados.",
   tool_dosxt: "Guia do DosXT", tool_dosxt_sub: "Instalação, disco de arranque !BOOT.img e ficheiros .cfg.",
+  boot_type: "O seu DosXT arranca a partir de",
+  boot_floppy: "Uma disquete de DOS (A:)",
+  boot_hd: "Um disco rígido com DOS (C:)",
+  boot_none: "Nenhum: o jogo arranca sozinho",
+  game_drive: "O jogo ficará em {d}",
+  boot_help: "A imagem de arranque, em /cores/dosxt ou /roms/dos.",
 };

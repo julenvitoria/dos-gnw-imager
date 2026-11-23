@@ -27,7 +27,6 @@ export default {
   pre: "Программы перед игрой",
   pre_help: "Необязательно, через «;». Напр.: звуковой драйвер вроде SOUND.",
   boot: "Загрузочный диск DOS",
-  boot_help: "DosXT загружает MS-DOS с этой дискеты (в /cores/dosxt). Оставьте пустым, если игра загружается сама.",
   step_options: "Настройки",
   cpu_speed: "Скорость процессора",
   cyc_max: "Максимальная (рекомендуется)",
@@ -95,4 +94,10 @@ export default {
   tool_coverstudio: "Ищет обложки на ScreenScraper и переводит их в формат Game & Watch.",
   tool_dosat: "Руководство DosAT", tool_dosat_sub: "Установка, файлы .cfg, кнопки и сохранения.",
   tool_dosxt: "Руководство DosXT", tool_dosxt_sub: "Установка, загрузочный диск !BOOT.img и файлы .cfg.",
+  boot_type: "Ваш DosXT загружается с",
+  boot_floppy: "Дискеты DOS (A:)",
+  boot_hd: "Жёсткого диска с DOS (C:)",
+  boot_none: "Ни с чего: игра загружается сама",
+  game_drive: "Игра будет на диске {d}",
+  boot_help: "Загрузочный образ, в /cores/dosxt или /roms/dos.",
 };
