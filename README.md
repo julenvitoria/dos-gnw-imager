@@ -41,6 +41,8 @@ The same layouts as the cores' own tools
 
 ## Development
 
+The logos (`img/logo-*.svg`) are made by `python3 tools/make_logos.py`.
+
 No build step: plain HTML, CSS and JavaScript modules, served as they are by
 GitHub Pages. To try it locally, serve the folder (modules do not load from
 `file://`):

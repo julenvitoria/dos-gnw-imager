@@ -42,6 +42,8 @@ Los mismos formatos que las herramientas de los cores
 
 ## Desarrollo
 
+Los iconos (`img/logo-*.svg`) se generan con `python3 tools/make_logos.py`.
+
 Sin compilación: HTML, CSS y módulos de JavaScript tal cual, que GitHub Pages
 sirve directamente. Para probarlo en local, sirve la carpeta (los módulos no
 cargan desde `file://`):
