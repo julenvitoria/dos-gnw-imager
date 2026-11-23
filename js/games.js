@@ -69,7 +69,8 @@ export const CORES = {
   },
   dosxt: {
     ext: "img", cfgDir: "cores/dosxt", romDir: "roms/dos",
-    buttons: ["up", "down", "left", "right", "a", "b", "game", "time", "start", "select"],
+    // GAME stays on the on-screen keyboard, as in DosAT: not offered.
+    buttons: ["up", "down", "left", "right", "a", "b", "time", "start", "select"],
     defaults: { up: "up", down: "down", left: "left", right: "right", a: "enter", b: "space",
                 game: "keyboard", time: "esc", start: "tab", select: "backspace" },
   },
