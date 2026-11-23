@@ -18,8 +18,8 @@ Everything happens in your browser: the game's files are not uploaded anywhere.
 The **Tools** tab links to [CoverStudio](https://sylverb.github.io/CoverStudio/?target=gw)
 (covers from ScreenScraper, in the Game & Watch format) and to the cores' guides.
 
-Languages: English, Spanish, French, German, Simplified Chinese, Japanese and
-Korean. The page follows the browser's language and remembers a choice made
+Languages: English, Spanish, French, German, Italian, Portuguese (Brazil),
+Russian, Chinese (Simplified and Traditional), Japanese and Korean. The page follows the browser's language and remembers a choice made
 with the selector. A language is one file in `js/lang/` (missing texts fall
 back to English) plus one line in `js/i18n.js`.
 

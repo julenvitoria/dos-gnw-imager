@@ -8,12 +8,25 @@ import de from "./lang/de.js";
 import zh from "./lang/zh.js";
 import ja from "./lang/ja.js";
 import ko from "./lang/ko.js";
+import it from "./lang/it.js";
+import pt from "./lang/pt.js";
+import ru from "./lang/ru.js";
+import zhHant from "./lang/zh-Hant.js";
 
 // In the selector's order, each named in its own language.
-export const LANGS = { es: "Español", en: "English", fr: "Français", de: "Deutsch",
-  zh: "简体中文", ja: "日本語", ko: "한국어" };
+export const LANGS = { es: "Español", en: "English", fr: "Français", de: "Deutsch", it: "Italiano",
+  pt: "Português", ru: "Русский", zh: "简体中文", "zh-Hant": "繁體中文", ja: "日本語", ko: "한국어" };
 
-const T = { es, en, fr, de, zh, ja, ko };
+const T = { es, en, fr, de, it, pt, ru, zh, "zh-Hant": zhHant, ja, ko };
+
+// A browser language tag -> one of ours: "zh-TW", "zh-HK", "zh-MO" and
+// "zh-Hant-*" are Traditional Chinese, any other "zh" Simplified; the rest
+// by their first two letters ("pt-PT" and "pt-BR" alike).
+function pick(tag) {
+  const t = String(tag).toLowerCase();
+  if (t.startsWith("zh")) return /hant|-tw|-hk|-mo/.test(t) ? "zh-Hant" : "zh";
+  return T[t.slice(0, 2)] ? t.slice(0, 2) : null;
+}
 
 
 const KEY = "dos-gnw-imager.lang";
@@ -24,8 +37,8 @@ export function initialLang() {
     if (saved && T[saved]) return saved;
   } catch { /* storage blocked: follow the browser */ }
   for (const l of navigator.languages || [navigator.language || "en"]) {
-    const code = String(l).slice(0, 2).toLowerCase();
-    if (T[code]) return code;
+    const code = pick(l);
+    if (code) return code;
   }
   return "en";
 }
@@ -37,7 +50,7 @@ export function saveLang(lang) {
 let current = "en";
 export function setLang(lang) {
   current = T[lang] ? lang : "en";
-  document.documentElement.lang = current === "zh" ? "zh-Hans" : current;
+  document.documentElement.lang = current === "zh" ? "zh-Hans" : current === "pt" ? "pt-BR" : current;
 }
 export function lang() { return current; }
 

@@ -18,8 +18,8 @@ Todo ocurre en tu navegador: los archivos del juego no se suben a ningún sitio.
 La pestaña **Herramientas** enlaza a [CoverStudio](https://sylverb.github.io/CoverStudio/?target=gw)
 (carátulas de ScreenScraper en el formato de la Game & Watch) y a las guías de los cores.
 
-Idiomas: inglés, español, francés, alemán, chino simplificado, japonés y
-coreano. La página sigue el idioma del navegador y recuerda el que elijas en
+Idiomas: inglés, español, francés, alemán, italiano, portugués (Brasil), ruso,
+chino (simplificado y tradicional), japonés y coreano. La página sigue el idioma del navegador y recuerda el que elijas en
 el selector. Cada idioma es un archivo en `js/lang/` (lo que falte sale en
 inglés) y una línea en `js/i18n.js`.
 
