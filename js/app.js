@@ -230,8 +230,11 @@ function renderPad() {
   const dl = $("keys");
   dl.textContent = "";
   for (const k of keyNames(state.core)) dl.append(new Option(k));
-  for (const b of C.buttons) {
+  // GAME is listed in both tabs; in DosAT it cannot be changed (it is the
+  // on-screen keyboard's door), so it shows as a fixed field.
+  for (const b of ["up", "down", "left", "right", "a", "b", "game", "time", "start", "select"]) {
     if (state.console !== "zelda" && ZELDA_ONLY.includes(b)) continue;
+    const fixed = !C.buttons.includes(b);
     const wrap = document.createElement("label");
     wrap.className = "key";
     const head = document.createElement("span");
@@ -245,6 +248,15 @@ function renderPad() {
     input.placeholder = t("default_key", { k: C.defaults[b] });
     input.value = state.keys[b] || "";
     input.dataset.btn = b;
+    if (fixed) {
+      input.removeAttribute("list");
+      input.value = t("game_kbd");
+      input.disabled = true;
+      input.title = t("game_fixed");
+      wrap.append(head, input);
+      pad.append(wrap);
+      continue;
+    }
     input.addEventListener("input", () => {
       state.keys[b] = input.value;
       const ok = normKey(state.core, input.value).ok;
