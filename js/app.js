@@ -60,8 +60,19 @@ for (const tab of document.querySelectorAll(".tab")) {
     }
   });
 }
+// One logo per tab: the console's screen shows C:\> (DosAT, a hard disk),
+// A:\> in CGA colours (DosXT, boots from floppy A:) or a wrench (tools).
+// The browser tab's icon follows.
+for (const k of ["dosxt", "tools"]) new Image().src = `img/logo-${k}.svg`;   // no flash on first switch
+function showLogo(core) {
+  const src = `img/logo-${core}.svg`;
+  $("logo").src = src;
+  $("favicon").href = src;
+}
+
 function selectCore(core) {
   for (const tab of document.querySelectorAll(".tab")) tab.setAttribute("aria-selected", String(tab.dataset.core === core));
+  showLogo(core);
   // The tools tab is a list of links: it hides the game and its steps and
   // keeps the core (and the loaded game) for when a core tab comes back.
   const tools = core === "tools";
