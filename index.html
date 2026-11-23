@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOS G&amp;W Imager</title>
+  <meta name="description" content="In-browser disk image and .cfg maker for the DosAT and DosXT Game &amp; Watch cores.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='5' width='28' height='22' rx='4' fill='%23e7cd78'/%3E%3Crect x='8' y='9' width='16' height='12' rx='1.5' fill='%230c1018'/%3E%3Ccircle cx='26' cy='23' r='2' fill='%23d12f2c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="brand__icon" aria-hidden="true"><span></span></div>
+      <div>
+        <h1 data-i18n="title">DOS G&amp;W Imager</h1>
+        <p class="brand__tag" data-i18n="tagline"></p>
+      </div>
+    </div>
+    <label class="lang">
+      <span class="sr" data-i18n="lang"></span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 6h-2.9a15.7 15.7 0 0 0-1.4-3.6A8 8 0 0 1 18.9 8ZM12 4c.8 1.1 1.5 2.5 1.9 4h-3.8c.4-1.5 1.1-2.9 1.9-4ZM4.3 14a8.2 8.2 0 0 1 0-4h3.3a16 16 0 0 0 0 4H4.3Zm.8 2h2.9c.3 1.3.8 2.5 1.4 3.6A8 8 0 0 1 5.1 16ZM8 8H5.1a8 8 0 0 1 4.3-3.6C8.8 5.5 8.3 6.7 8 8Zm4 12c-.8-1.1-1.5-2.5-1.9-4h3.8c-.4 1.5-1.1 2.9-1.9 4Zm2.3-6H9.7a14 14 0 0 1 0-4h4.6a14 14 0 0 1 0 4Zm.3 5.6c.6-1.1 1.1-2.3 1.4-3.6h2.9a8 8 0 0 1-4.3 3.6Zm1.8-5.6a16 16 0 0 0 0-4h3.3a8.2 8.2 0 0 1 0 4h-3.3Z"/></svg>
+      <select id="lang"></select>
+    </label>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-dosat" data-core="dosat" aria-selected="true">
+      <strong data-i18n="tab_dosat">DosAT</strong><small data-i18n="tab_dosat_sub"></small>
+    </button>
+    <button class="tab" role="tab" id="tab-dosxt" data-core="dosxt" aria-selected="false">
+      <strong data-i18n="tab_dosxt">DosXT</strong><small data-i18n="tab_dosxt_sub"></small>
+    </button>
+  </nav>
+
+  <main class="main">
+    <!-- 1. Game -->
+    <section class="card" id="s-game">
+      <h2><span class="num">1</span><span data-i18n="step_game"></span></h2>
+      <div class="drop" id="drop" tabindex="0">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Zm2 5 4 4h-3v4h-2v-4H8l4-4Z"/></svg>
+        <p class="drop__title" data-i18n="drop_title"></p>
+        <div class="drop__buttons">
+          <button class="btn" id="pick-folder" type="button" data-i18n="pick_folder"></button>
+          <span class="muted" data-i18n="drop_or"></span>
+          <button class="btn" id="pick-zip" type="button" data-i18n="pick_zip"></button>
+        </div>
+        <p class="muted small" data-i18n="privacy"></p>
+        <input type="file" id="in-folder" webkitdirectory directory multiple hidden>
+        <input type="file" id="in-zip" accept=".zip,application/zip" hidden>
+      </div>
+      <div class="loaded" id="loaded" hidden>
+        <div class="loaded__head">
+          <div>
+            <div class="loaded__title" id="game-title"></div>
+            <div class="muted small" id="game-stats"></div>
+          </div>
+          <button class="btn btn--ghost" id="change" type="button" data-i18n="change_game"></button>
+        </div>
+        <div class="grid2">
+          <label class="field">
+            <span data-i18n="game_name"></span>
+            <input id="o-name" maxlength="40" autocomplete="off" spellcheck="false">
+            <small data-i18n="game_name_help"></small>
+          </label>
+          <label class="field">
+            <span data-i18n="disk"></span>
+            <select id="o-layout"></select>
+          </label>
+        </div>
+        <details class="renamed" id="renamed" hidden><summary></summary><ul></ul></details>
+      </div>
+      <p class="status" id="status" role="status" hidden></p>
+    </section>
+
+    <div id="steps" class="steps" hidden>
+      <!-- 2. Start-up -->
+      <section class="card">
+        <h2><span class="num">2</span><span data-i18n="step_start"></span></h2>
+        <label class="field">
+          <span data-i18n="program"></span>
+          <select id="o-program"></select>
+          <small data-i18n="program_help"></small>
+        </label>
+        <p class="warn" id="no-program" data-i18n="no_program" hidden></p>
+        <div class="grid2">
+          <label class="field">
+            <span data-i18n="args"></span>
+            <input id="o-args" autocomplete="off" spellcheck="false">
+            <small data-i18n="args_help"></small>
+          </label>
+          <label class="field" data-only="dosat">
+            <span data-i18n="pre"></span>
+            <input id="o-pre" autocomplete="off" spellcheck="false" placeholder="SOUND">
+            <small data-i18n="pre_help"></small>
+          </label>
+          <label class="field" data-only="dosxt">
+            <span data-i18n="boot"></span>
+            <input id="o-boot" autocomplete="off" spellcheck="false" value="!BOOT.img">
+            <small data-i18n="boot_help"></small>
+          </label>
+        </div>
+      </section>
+
+      <!-- 3. Options -->
+      <section class="card">
+        <h2><span class="num">3</span><span data-i18n="step_options"></span></h2>
+        <div class="grid2" data-only="dosat">
+          <label class="field">
+            <span data-i18n="cpu_speed"></span>
+            <select id="o-cycles">
+              <option value="max" data-i18n="cyc_max"></option>
+              <option value="4500" data-i18n="cyc_4500"></option>
+              <option value="2500" data-i18n="cyc_2500"></option>
+              <option value="1200" data-i18n="cyc_1200"></option>
+              <option value="800" data-i18n="cyc_800"></option>
+              <option value="330" data-i18n="cyc_330"></option>
+            </select>
+            <small data-i18n="cpu_help"></small>
+          </label>
+          <label class="field">
+            <span data-i18n="sound"></span>
+            <select id="o-sound">
+              <option value="both" data-i18n="snd_both"></option>
+              <option value="adlib" data-i18n="snd_adlib"></option>
+              <option value="sb" data-i18n="snd_sb"></option>
+              <option value="none" data-i18n="snd_none"></option>
+            </select>
+            <small data-i18n="sound_help"></small>
+          </label>
+          <fieldset class="field">
+            <legend data-i18n="memory"></legend>
+            <label class="check"><input type="checkbox" id="o-xms" checked><span data-i18n="xms"></span></label>
+            <label class="check"><input type="checkbox" id="o-ems"><span data-i18n="ems"></span></label>
+          </fieldset>
+          <details class="field adv">
+            <summary data-i18n="advanced"></summary>
+            <label class="field">
+              <span data-i18n="vga_pages"></span>
+              <select id="o-vgapages">
+                <option value="1">1</option><option value="0">0</option>
+                <option value="2">2</option><option value="3">3</option>
+              </select>
+              <small data-i18n="vga_pages_help"></small>
+            </label>
+            <label class="field">
+              <span data-i18n="vga_hz"></span>
+              <select id="o-vgahz">
+                <option value="70" data-i18n="hz70"></option>
+                <option value="60" data-i18n="hz60"></option>
+              </select>
+            </label>
+          </details>
+        </div>
+        <div class="grid2" data-only="dosxt">
+          <label class="field">
+            <span data-i18n="cpu_speed"></span>
+            <select id="o-cpu">
+              <option value="8">8 MHz (Turbo XT)</option>
+              <option value="4.77">4,77 MHz (IBM PC)</option>
+              <option value="10">10 MHz</option>
+              <option value="12">12 MHz</option>
+              <option value="16">16 MHz</option>
+              <option value="20">20 MHz</option>
+            </select>
+            <small data-i18n="xt_cpu_help"></small>
+          </label>
+          <label class="field">
+            <span data-i18n="xt_video"></span>
+            <select id="o-video">
+              <option value="vga" data-i18n="xt_vga"></option>
+              <option value="cga" data-i18n="xt_cga"></option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="vram"></span>
+            <select id="o-vram">
+              <option value="128">128 KB</option><option value="64">64 KB</option><option value="256">256 KB</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <!-- 4. Buttons -->
+      <section class="card">
+        <h2><span class="num">4</span><span data-i18n="step_buttons"></span></h2>
+        <div class="console" role="radiogroup" aria-labelledby="console-label">
+          <span id="console-label" class="console__label" data-i18n="console"></span>
+          <div class="seg">
+            <button type="button" role="radio" data-console="mario" data-i18n="console_mario"></button>
+            <button type="button" role="radio" data-console="zelda" data-i18n="console_zelda"></button>
+          </div>
+          <small class="muted" id="console-help"></small>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="o-mouse"><span class="switch__ui" aria-hidden="true"></span>
+          <span><strong data-i18n="mouse"></strong><small class="muted" data-i18n="mouse_help"></small></span>
+        </label>
+        <div class="pad" id="pad"></div>
+        <p class="muted small"><span data-i18n="keys_empty"></span> <span data-i18n="keys_help"></span></p>
+        <p class="muted small" data-only="dosat" data-i18n="game_fixed"></p>
+        <datalist id="keys"></datalist>
+      </section>
+
+      <!-- 5. Download -->
+      <section class="card card--accent">
+        <h2><span class="num">5</span><span data-i18n="step_download"></span></h2>
+        <div class="dl">
+          <button class="btn btn--primary" id="dl-zip" type="button"><span data-i18n="dl_zip"></span></button>
+          <div class="dl__alt">
+            <button class="btn" id="dl-image" type="button"></button>
+            <button class="btn" id="dl-cfg" type="button"></button>
+          </div>
+        </div>
+        <p class="muted small" data-i18n="dl_zip_help"></p>
+        <p class="note" data-only="dosxt" data-i18n="xt_boot_note"></p>
+        <div class="grid2">
+          <div>
+            <h3 data-i18n="sd_layout"></h3>
+            <pre class="tree" id="sd-tree"></pre>
+          </div>
+          <div>
+            <h3 data-i18n="cfg_preview"></h3>
+            <pre class="cfg" id="cfg-preview"></pre>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span data-i18n="footer_repos"></span>
+    <a href="https://github.com/julenvitoria/DosAT-retro-go-sd">DosAT</a> ·
+    <a href="https://github.com/julenvitoria/DosXT-retro-go-sd">DosXT</a> ·
+    <a href="https://github.com/julenvitoria/dos-gnw-imager">dos-gnw-imager</a>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
