@@ -9,22 +9,25 @@ import zh from "./lang/zh.js";
 import ja from "./lang/ja.js";
 import ko from "./lang/ko.js";
 import it from "./lang/it.js";
-import pt from "./lang/pt.js";
+import ptBR from "./lang/pt-BR.js";
+import ptPT from "./lang/pt-PT.js";
 import ru from "./lang/ru.js";
 import zhHant from "./lang/zh-Hant.js";
 
 // In the selector's order, each named in its own language.
 export const LANGS = { es: "Español", en: "English", fr: "Français", de: "Deutsch", it: "Italiano",
-  pt: "Português", ru: "Русский", zh: "简体中文", "zh-Hant": "繁體中文", ja: "日本語", ko: "한국어" };
+  "pt-PT": "Português (Portugal)", "pt-BR": "Português (Brasil)", ru: "Русский", zh: "简体中文", "zh-Hant": "繁體中文", ja: "日本語", ko: "한국어" };
 
-const T = { es, en, fr, de, it, pt, ru, zh, "zh-Hant": zhHant, ja, ko };
+const T = { es, en, fr, de, it, "pt-PT": ptPT, "pt-BR": ptBR, ru, zh, "zh-Hant": zhHant, ja, ko };
 
 // A browser language tag -> one of ours: "zh-TW", "zh-HK", "zh-MO" and
-// "zh-Hant-*" are Traditional Chinese, any other "zh" Simplified; the rest
-// by their first two letters ("pt-PT" and "pt-BR" alike).
+// "zh-Hant-*" are Traditional Chinese, any other "zh" Simplified; "pt-BR"
+// is Brazilian Portuguese, any other "pt" European; the rest by their first
+// two letters.
 function pick(tag) {
   const t = String(tag).toLowerCase();
   if (t.startsWith("zh")) return /hant|-tw|-hk|-mo/.test(t) ? "zh-Hant" : "zh";
+  if (t.startsWith("pt")) return /-br/.test(t) ? "pt-BR" : "pt-PT";
   return T[t.slice(0, 2)] ? t.slice(0, 2) : null;
 }
 
@@ -50,7 +53,7 @@ export function saveLang(lang) {
 let current = "en";
 export function setLang(lang) {
   current = T[lang] ? lang : "en";
-  document.documentElement.lang = current === "zh" ? "zh-Hans" : current === "pt" ? "pt-BR" : current;
+  document.documentElement.lang = current === "zh" ? "zh-Hans" : current;
 }
 export function lang() { return current; }
 
