@@ -60,9 +60,10 @@ for (const tab of document.querySelectorAll(".tab")) {
     }
   });
 }
-// One logo per tab: the console's screen shows C:\> (DosAT, a hard disk),
-// A:\> in CGA colours (DosXT, boots from floppy A:) or a wrench (tools).
-// The browser tab's icon follows.
+// One logo per tab: the console's screen shows the core's icon from the
+// retro-go menu (DosAT a 3.5" floppy, DosXT a 5.25" one, from each core's
+// src/assets/pad.png) or a crossed wrench and screwdriver (tools). The
+// browser tab's icon follows.
 for (const k of ["dosxt", "tools"]) new Image().src = `img/logo-${k}.svg`;   // no flash on first switch
 function showLogo(core) {
   const src = `img/logo-${core}.svg`;
