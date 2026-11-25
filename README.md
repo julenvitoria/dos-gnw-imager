@@ -11,7 +11,13 @@ In-browser disk image and `.cfg` maker for the DosAT and DosXT Game & Watch core
 3. Check the program that starts the game, the options and the buttons
    (Mario or Zelda console).
 4. Download the `.zip` and unzip it at the root of the SD card: the disk image
-   lands in `/roms/dos/` and the `.cfg` in `/cores/dosat/` or `/cores/dosxt/`.
+   lands in `/roms/dos/`, the `.cfg` in `/cores/dosat/` or `/cores/dosxt/`, and
+   (unless you untick it) the core's latest release in `/cores/`.
+
+The cores in the `.zip` come from `cores/`, a copy of each core's latest
+release that `.github/workflows/update-cores.yml` refreshes every day (a
+browser cannot download a GitHub release from another site). To pick up a new
+release at once: Actions → Update cores → Run workflow.
 
 Everything happens in your browser: the game's files are not uploaded anywhere.
 

@@ -1,0 +1,4 @@
+{
+  "dosat": {"version": "v0.0.6", "date": "2026-11-21", "size": 170200, "sha256": "a182f3c5747ed848bf59a49e9d03dcbebade8a210ab8df31eea648f96a184fae", "repo": "julenvitoria/DosAT-retro-go-sd"},
+  "dosxt": {"version": "v0.0.2", "date": "2026-11-09", "size": 132404, "sha256": "92c0b02e97097d18d8907566164b9abd3cba562a6d4b704a9c9466170933bbc8", "repo": "julenvitoria/DosXT-retro-go-sd"}
+}

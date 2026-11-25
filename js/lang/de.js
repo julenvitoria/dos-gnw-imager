@@ -100,4 +100,7 @@ export default {
   boot_none: "Nichts: Das Spiel bootet selbst",
   game_drive: "Das Spiel liegt auf {d}",
   boot_help: "Das Start-Image, in /cores/dosxt oder /roms/dos.",
+  inc_core: "Core beilegen: {file} ({ver}, die neueste Version)",
+  inc_core_nover: "Core beilegen: {file} (die neueste Version)",
+  core_fail: "{file} konnte nicht geladen werden: Die .zip kommt ohne Core.",
 };

@@ -100,4 +100,7 @@ export default {
   boot_none: "Ни с чего: игра загружается сама",
   game_drive: "Игра будет на диске {d}",
   boot_help: "Загрузочный образ, в /cores/dosxt или /roms/dos.",
+  inc_core: "Добавить ядро: {file} ({ver}, последняя версия)",
+  inc_core_nover: "Добавить ядро: {file} (последняя версия)",
+  core_fail: "Не удалось загрузить {file}: .zip будет без ядра.",
 };

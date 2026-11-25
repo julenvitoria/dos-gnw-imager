@@ -103,4 +103,7 @@ export default {
   boot_none: "なし：ゲーム自体が起動",
   game_drive: "ゲームは {d} に入ります",
   boot_help: "起動イメージ。/cores/dosxt か /roms/dos に置きます。",
+  inc_core: "コアを含める：{file}（{ver}、最新版）",
+  inc_core_nover: "コアを含める：{file}（最新版）",
+  core_fail: "{file} をダウンロードできませんでした。.zip にはコアが入りません。",
 };

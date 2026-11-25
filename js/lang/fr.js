@@ -101,4 +101,7 @@ export default {
   boot_none: "Rien : le jeu démarre seul",
   game_drive: "Le jeu sera sur {d}",
   boot_help: "L'image de démarrage, dans /cores/dosxt ou /roms/dos.",
+  inc_core: "Inclure le core : {file} ({ver}, la dernière version)",
+  inc_core_nover: "Inclure le core : {file} (la dernière version)",
+  core_fail: "Impossible de télécharger {file} : le .zip est fourni sans le core.",
 };

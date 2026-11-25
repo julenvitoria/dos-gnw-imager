@@ -177,6 +177,7 @@ pre.tree, pre.cfg {
   overflow: auto; max-height: 340px; white-space: pre; max-width: 100%;
 }
 pre.tree b { color: var(--gw-cream); font-weight: 600; }
+pre.tree i { color: var(--text-muted); font-style: normal; }
 
 .footer { max-width: 880px; margin: 0 auto; padding: 8px 16px 32px; color: var(--text-muted); font-size: 13px; text-align: center; }
 
@@ -214,3 +215,4 @@ input:disabled { color: var(--text-muted); background: var(--bg-elevated); borde
   .tool__go { font-size: 0; }               /* the whole card is the link: keep just the arrow */
   .tool__go::after { content: "↗"; font-size: 18px; }
 }
+.check--core { margin: 12px 0 0; }

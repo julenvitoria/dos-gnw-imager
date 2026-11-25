@@ -11,7 +11,13 @@ Creador de imágenes de disco y `.cfg` en el navegador para los cores DosAT y Do
 3. Revisa el programa que arranca el juego, las opciones y los botones
    (consola de Mario o de Zelda).
 4. Descarga el `.zip` y descomprímelo en la raíz de la tarjeta SD: la imagen
-   queda en `/roms/dos/` y el `.cfg` en `/cores/dosat/` o `/cores/dosxt/`.
+   queda en `/roms/dos/`, el `.cfg` en `/cores/dosat/` o `/cores/dosxt/` y
+   (salvo que lo desmarques) la última release del core en `/cores/`.
+
+Los cores del `.zip` salen de `cores/`, una copia de la última release de cada
+core que `.github/workflows/update-cores.yml` actualiza cada día (un navegador
+no puede descargar una release de GitHub desde otra web). Para coger una
+release nueva al momento: Actions → Update cores → Run workflow.
 
 Todo ocurre en tu navegador: los archivos del juego no se suben a ningún sitio.
 

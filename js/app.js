@@ -357,24 +357,56 @@ function refresh() {
   }
   const tree = $("sd-tree");
   tree.textContent = "";
-  const lines = [
-    ["/", ""],
-    ["├─ cores/", ""],
-    [`│  └─ ${CORES[state.core].cfgDir.split("/")[1]}/`, ""],
-    ["│     └─ ", p.cfgName],
-    ["└─ roms/", ""],
-    ["   └─ dos/", ""],
-    ["      └─ ", p.imageName],
-  ];
-  if (state.core === "dosxt") lines.splice(4, 0, ["│     └─ ", "!BOOT.img  (MS-DOS)"]), lines[3][0] = "│     ├─ ";
-  for (const [pre, b] of lines) {
+  const sub = CORES[state.core].cfgDir.split("/")[1];
+  const withCore = coreIncluded();
+  // [prefix, name, kind]: kind "b" = in the download, "m" = yours to add
+  const lines = [["/", ""], ["├─ cores/", ""]];
+  if (withCore) lines.push(["│  ├─ ", `${state.core}.bin`, "b"]);
+  lines.push([`│  └─ ${sub}/`, ""]);
+  if (state.core === "dosxt") {
+    lines.push(["│     ├─ ", p.cfgName, "b"], ["│     └─ ", `${$("o-boot").value || "!BOOT.img"}  (MS-DOS)`, "m"]);
+  } else {
+    lines.push(["│     └─ ", p.cfgName, "b"]);
+  }
+  lines.push(["└─ roms/", ""], ["   └─ dos/", ""], ["      └─ ", p.imageName, "b"]);
+  for (const [pre, name, kind] of lines) {
     tree.append(document.createTextNode(pre));
-    if (b) { const el = document.createElement("b"); el.textContent = b; tree.append(el); }
+    if (name) { const el = document.createElement(kind === "b" ? "b" : "i"); el.textContent = name; tree.append(el); }
     tree.append(document.createTextNode("\n"));
   }
+  const info = coresInfo?.[state.core];
+  $("core-label").textContent = info
+    ? t("inc_core", { file: `${state.core}.bin`, ver: info.version })
+    : t("inc_core_nover", { file: `${state.core}.bin` });
   $("dl-image").textContent = `${t("dl_image")}: ${p.imageName}`;
   $("dl-cfg").textContent = p.cfgName;
   if (!$("status").classList.contains("is-error")) status("");
+}
+
+// ------------------------------------------------------------ the cores
+// cores/ holds a copy of each core's latest release, kept up to date by
+// .github/workflows/update-cores.yml (a page cannot download a GitHub release
+// asset from another site). cores.json says which version each one is.
+let coresInfo = null;
+fetch("cores/cores.json", { cache: "no-cache" })
+  .then((r) => (r.ok ? r.json() : null))
+  .then((j) => { coresInfo = j; refresh(); })
+  .catch(() => { /* no versions shown; the zip still tries */ });
+const CORE_KEY = "dos-gnw-imager.withcore";
+try { if (localStorage.getItem(CORE_KEY) === "0") $("o-core").checked = false; } catch { /* default on */ }
+$("o-core").addEventListener("change", () => {
+  try { localStorage.setItem(CORE_KEY, $("o-core").checked ? "1" : "0"); } catch { /* not remembered */ }
+  refresh();
+});
+function coreIncluded() { return $("o-core").checked; }
+
+async function fetchCore(core) {
+  const r = await fetch(`cores/${core}.bin`, { cache: "no-cache" });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  const data = new Uint8Array(await r.arrayBuffer());
+  const want = coresInfo?.[core]?.size;
+  if (want && data.length !== want) throw new Error("size");
+  return data;
 }
 
 // ------------------------------------------------------------ download
@@ -398,7 +430,7 @@ async function withBuild(fn) {
     const o = opts();
     const out = build(state.prep, o);
     status("");
-    fn(out);
+    await fn(out);
   } catch (err) {
     status(t("err_build", { why: err.message }), true);
   } finally {
@@ -407,10 +439,17 @@ async function withBuild(fn) {
 }
 
 const cfgBytes = (text) => new TextEncoder().encode(text.replace(/\r?\n/g, "\r\n"));
-$("dl-zip").addEventListener("click", () => withBuild(({ image, cfgText }) => {
-  const p = state.prep;
-  save(writeZip([{ path: p.paths.image, data: image.bytes }, { path: p.paths.cfg, data: cfgBytes(cfgText) }]),
-       `${p.name}-${state.core}.zip`);
+$("dl-zip").addEventListener("click", () => withBuild(async ({ image, cfgText }) => {
+  const p = state.prep, core = state.core;
+  const files = [{ path: p.paths.image, data: image.bytes }, { path: p.paths.cfg, data: cfgBytes(cfgText) }];
+  if (coreIncluded()) {
+    try {
+      files.unshift({ path: `cores/${core}.bin`, data: await fetchCore(core) });
+    } catch {
+      status(t("core_fail", { file: `${core}.bin` }), true);
+    }
+  }
+  save(writeZip(files), `${p.name}-${core}.zip`);
 }));
 $("dl-image").addEventListener("click", () => withBuild(({ image }) => save(new Blob([image.bytes]), state.prep.imageName)));
 $("dl-cfg").addEventListener("click", () => {

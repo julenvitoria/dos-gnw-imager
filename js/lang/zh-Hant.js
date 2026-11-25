@@ -100,4 +100,7 @@ export default {
   boot_none: "無：遊戲自行開機",
   game_drive: "遊戲將位於 {d}",
   boot_help: "開機映像檔，放在 /cores/dosxt 或 /roms/dos。",
+  inc_core: "包含核心：{file}（{ver}，最新版本）",
+  inc_core_nover: "包含核心：{file}（最新版本）",
+  core_fail: "無法下載 {file}：.zip 中不包含核心。",
 };
