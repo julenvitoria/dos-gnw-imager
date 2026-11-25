@@ -103,7 +103,7 @@ export default {
   boot_none: "없음: 게임이 스스로 부팅",
   game_drive: "게임은 {d}에 있습니다",
   boot_help: "부팅 이미지, /cores/dosxt 또는 /roms/dos에 있습니다.",
-  inc_core: "코어 포함: {file} ({ver}, 최신 버전)",
-  inc_core_nover: "코어 포함: {file} (최신 버전)",
-  core_fail: "{file}을(를) 내려받지 못했습니다. .zip에 코어가 없습니다.",
+  dl_core: "코어 내려받기: {file}",
+  dl_core_ver: "코어 내려받기: {file} ({ver})",
+  core_once: "한 번만 필요합니다. SD 카드의 /cores/에 넣으세요. 최신 릴리스입니다.",
 };

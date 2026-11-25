@@ -109,7 +109,7 @@ export default {
   boot_none: "None: the game boots by itself",
   game_drive: "The game will be on {d}",
   boot_help: "The boot image, in /cores/dosxt or /roms/dos.",
-  inc_core: "Include the core: {file} ({ver}, the latest release)",
-  inc_core_nover: "Include the core: {file} (the latest release)",
-  core_fail: "Could not download {file}: the .zip comes without the core.",
+  dl_core: "Download the core: {file}",
+  dl_core_ver: "Download the core: {file} ({ver})",
+  core_once: "Needed only once: it goes in /cores/ on the SD card. It is the latest release.",
 };

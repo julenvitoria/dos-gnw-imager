@@ -21,6 +21,7 @@ function useLang(code) {
   langSel.value = code;
   applyTexts();
   showConsole();
+  showCoreLink();
   renderPad();
   refresh();
 }
@@ -74,6 +75,7 @@ function showLogo(core) {
 function selectCore(core) {
   for (const tab of document.querySelectorAll(".tab")) tab.setAttribute("aria-selected", String(tab.dataset.core === core));
   showLogo(core);
+  showCoreLink(core);
   // The tools tab is a list of links: it hides the game and its steps and
   // keeps the core (and the loaded game) for when a core tab comes back.
   const tools = core === "tools";
@@ -358,11 +360,8 @@ function refresh() {
   const tree = $("sd-tree");
   tree.textContent = "";
   const sub = CORES[state.core].cfgDir.split("/")[1];
-  const withCore = coreIncluded();
-  // [prefix, name, kind]: kind "b" = in the download, "m" = yours to add
-  const lines = [["/", ""], ["├─ cores/", ""]];
-  if (withCore) lines.push(["│  ├─ ", `${state.core}.bin`, "b"]);
-  lines.push([`│  └─ ${sub}/`, ""]);
+  // [prefix, name, kind]: kind "b" = in the download, "m" = yours to add once
+  const lines = [["/", ""], ["├─ cores/", ""], ["│  ├─ ", `${state.core}.bin`, "m"], [`│  └─ ${sub}/`, ""]];
   if (state.core === "dosxt") {
     lines.push(["│     ├─ ", p.cfgName, "b"], ["│     └─ ", `${$("o-boot").value || "!BOOT.img"}  (MS-DOS)`, "m"]);
   } else {
@@ -374,39 +373,33 @@ function refresh() {
     if (name) { const el = document.createElement(kind === "b" ? "b" : "i"); el.textContent = name; tree.append(el); }
     tree.append(document.createTextNode("\n"));
   }
-  const info = coresInfo?.[state.core];
-  $("core-label").textContent = info
-    ? t("inc_core", { file: `${state.core}.bin`, ver: info.version })
-    : t("inc_core_nover", { file: `${state.core}.bin` });
   $("dl-image").textContent = `${t("dl_image")}: ${p.imageName}`;
   $("dl-cfg").textContent = p.cfgName;
   if (!$("status").classList.contains("is-error")) status("");
 }
 
-// ------------------------------------------------------------ the cores
-// cores/ holds a copy of each core's latest release, kept up to date by
-// .github/workflows/update-cores.yml (a page cannot download a GitHub release
-// asset from another site). cores.json says which version each one is.
-let coresInfo = null;
-fetch("cores/cores.json", { cache: "no-cache" })
-  .then((r) => (r.ok ? r.json() : null))
-  .then((j) => { coresInfo = j; refresh(); })
-  .catch(() => { /* no versions shown; the zip still tries */ });
-const CORE_KEY = "dos-gnw-imager.withcore";
-try { if (localStorage.getItem(CORE_KEY) === "0") $("o-core").checked = false; } catch { /* default on */ }
-$("o-core").addEventListener("change", () => {
-  try { localStorage.setItem(CORE_KEY, $("o-core").checked ? "1" : "0"); } catch { /* not remembered */ }
-  refresh();
-});
-function coreIncluded() { return $("o-core").checked; }
-
-async function fetchCore(core) {
-  const r = await fetch(`cores/${core}.bin`, { cache: "no-cache" });
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  const data = new Uint8Array(await r.arrayBuffer());
-  const want = coresInfo?.[core]?.size;
-  if (want && data.length !== want) throw new Error("size");
-  return data;
+// ------------------------------------------------------------ the core
+// A plain link to the core's latest release: GitHub's "latest/download" URL
+// always serves the newest one. (It cannot go in the .zip: a page cannot
+// download a GitHub release asset from another site, and a core in every
+// game's .zip would overwrite whatever core the card already has.)
+const CORE_REPO = { dosat: "DosAT-retro-go-sd", dosxt: "DosXT-retro-go-sd" };
+const coreVersion = {};
+function showCoreLink(core = state.core) {
+  if (!CORE_REPO[core]) return;          // the tools tab: keep the last one
+  const a = $("dl-core");
+  a.href = `https://github.com/julenvitoria/${CORE_REPO[core]}/releases/latest/download/${core}.bin`;
+  a.textContent = coreVersion[core]
+    ? t("dl_core_ver", { file: `${core}.bin`, ver: coreVersion[core] })
+    : t("dl_core", { file: `${core}.bin` });
+}
+// The version number is a nicety: GitHub's API answers pages from any site,
+// a few dozen times an hour per visitor. Without it the button just has no number.
+for (const core of Object.keys(CORE_REPO)) {
+  fetch(`https://api.github.com/repos/julenvitoria/${CORE_REPO[core]}/releases/latest`)
+    .then((r) => (r.ok ? r.json() : null))
+    .then((j) => { if (j?.tag_name) { coreVersion[core] = j.tag_name; showCoreLink(); } })
+    .catch(() => { /* no number */ });
 }
 
 // ------------------------------------------------------------ download
@@ -439,17 +432,10 @@ async function withBuild(fn) {
 }
 
 const cfgBytes = (text) => new TextEncoder().encode(text.replace(/\r?\n/g, "\r\n"));
-$("dl-zip").addEventListener("click", () => withBuild(async ({ image, cfgText }) => {
-  const p = state.prep, core = state.core;
-  const files = [{ path: p.paths.image, data: image.bytes }, { path: p.paths.cfg, data: cfgBytes(cfgText) }];
-  if (coreIncluded()) {
-    try {
-      files.unshift({ path: `cores/${core}.bin`, data: await fetchCore(core) });
-    } catch {
-      status(t("core_fail", { file: `${core}.bin` }), true);
-    }
-  }
-  save(writeZip(files), `${p.name}-${core}.zip`);
+$("dl-zip").addEventListener("click", () => withBuild(({ image, cfgText }) => {
+  const p = state.prep;
+  save(writeZip([{ path: p.paths.image, data: image.bytes }, { path: p.paths.cfg, data: cfgBytes(cfgText) }]),
+       `${p.name}-${state.core}.zip`);
 }));
 $("dl-image").addEventListener("click", () => withBuild(({ image }) => save(new Blob([image.bytes]), state.prep.imageName)));
 $("dl-cfg").addEventListener("click", () => {

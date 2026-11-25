@@ -117,6 +117,7 @@ a { color: var(--accent); }
   transition: background .15s, border-color .15s;
 }
 .btn:hover { background: #2b3957; }
+a.btn { display: inline-block; text-decoration: none; }
 .btn:disabled { opacity: .5; cursor: progress; }
 .btn--primary { background: var(--gw-red); border-color: #e2504d; color: #fff; padding: 12px 18px; font-size: 16px; }
 .btn--primary:hover { background: #e0403d; }
@@ -215,4 +216,6 @@ input:disabled { color: var(--text-muted); background: var(--bg-elevated); borde
   .tool__go { font-size: 0; }               /* the whole card is the link: keep just the arrow */
   .tool__go::after { content: "↗"; font-size: 18px; }
 }
-.check--core { margin: 12px 0 0; }
+.core-dl { display: flex; align-items: center; gap: 6px 12px; flex-wrap: wrap; margin: 14px 0 0;
+  padding-top: 12px; border-top: 1px dashed var(--border); }
+.core-dl small { flex: 1 1 220px; }

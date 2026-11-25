@@ -97,7 +97,7 @@ export default {
   boot_none: "Nenhum: o jogo inicia sozinho",
   game_drive: "O jogo ficará em {d}",
   boot_help: "A imagem de inicialização, em /cores/dosxt ou /roms/dos.",
-  inc_core: "Incluir o core: {file} ({ver}, a versão mais recente)",
-  inc_core_nover: "Incluir o core: {file} (a versão mais recente)",
-  core_fail: "Não foi possível baixar {file}: o .zip vai sem o core.",
+  dl_core: "Baixar o core: {file}",
+  dl_core_ver: "Baixar o core: {file} ({ver})",
+  core_once: "Só é preciso uma vez: vai em /cores/ no cartão SD. É a versão mais recente.",
 };
